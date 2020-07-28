@@ -9,7 +9,10 @@
  *  Built-in test program
  *  Entry symbol prefix 'UTEST_'
  *==============================================================*/
-    
+
+#define UBOOT_BEGIN_ADDR_OFFSET 0x3200
+#define UBOOT_END_ADDR_OFFSET 0x1800
+#define UBOOT_WORD_SIZE 0x100
 
     .set noreorder
     .set noat
@@ -300,6 +303,33 @@ UTEST_4MDCT:
 
 
     // 测试程序扩展
+
+UTEST_MOVE_BOOTLOADER:
+    // text_move_seg_begin: start address of the transfer
+    //text_move_seg_end : end address of the transfer
+    //text_move_seg_size: length of the transfer, in **word**
+    la t0, UBOOT_BEGIN_ADDR_OFFSET
+    la t1, UBOOT_END_ADDR_OFFSET
+    la t2, UBOOT_WORD_SIZE
+    // source should be in bfc ( spi flash address )
+    li t3, 0xbfc00000
+    or t0, t0, t3
+    // move the end address to 0xa0000000 ddr3 0-128M, the address is in uncached, so it 
+    // has the same effect of being moved to 0x80000000
+    li t4, 0xbfc00000
+    or t1, t1, t4
+    // loop until the moving has ended
+loop_until_move_end:
+    lw t5, 0(t0)
+    addiu t0, t0, 4
+    sw t5, 0(t1)
+    addiu t1, t1, 4
+    addiu t2, t2, -1
+    bnez t2, loop_until_move_end
+    nop
+    // jump to shell  
+    jr ra
+    nop   
 
 
 
