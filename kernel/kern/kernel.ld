@@ -26,7 +26,7 @@ PROVIDE(KERNEL_STACK_INIT = 0x80800000);
 PROVIDE(USER_STACK_INIT = 0x807F0000);
 SECTIONS
 {
-    . = 0x807F0000;
+    . = 0x80020000;
     .bss : {
         _sbss = .;         /* define a global symbol at bss start */
         *(.bss.uregs)
@@ -43,10 +43,13 @@ SECTIONS
     . = 0x80000000;
     .text : {
         *(.text.init)
-        . = 0x1000;
+	. = 0x10000;
+	_text_originalHandle = .;
+	*(.text.originalHandle)
+        . = 0x11000;
         _text_ebase_begin = .;
         *(.text.ebase)
-        . = 0x1180;
+        . = 0x11180;
         *(.text.ebase180)
         _text_ebase_end = .;
         . = ALIGN(0x1000);

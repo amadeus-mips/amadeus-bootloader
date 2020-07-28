@@ -66,7 +66,7 @@ INITLOCATE:                         // 定位启动程序
     nop
 #ifdef MACH_FPGA
 #ifdef ENABLE_INT
-    .org 0x380
+    .section .text.originalHandle
 EHANDLERLOCATE_380:                 // 定位普通中断处理程序, 0xbfc00380
     lui k0, %hi(EXCEPTIONHANDLER)
     addiu k0, %lo(EXCEPTIONHANDLER)
