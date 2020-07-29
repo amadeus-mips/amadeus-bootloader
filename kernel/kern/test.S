@@ -10,9 +10,9 @@
  *  Entry symbol prefix 'UTEST_'
  *==============================================================*/
 
-#define UBOOT_BEGIN_ADDR_OFFSET 0x3200
-#define UBOOT_END_ADDR_OFFSET 0x1800
-#define UBOOT_WORD_SIZE 0x100
+#define UBOOT_BEGIN_ADDR_OFFSET 0x1329c
+#define UBOOT_END_ADDR_OFFSET 0x90000
+#define UBOOT_WORD_SIZE 0xe1dc
 
     .set noreorder
     .set noat
@@ -308,15 +308,15 @@ UTEST_MOVE_BOOTLOADER:
     // text_move_seg_begin: start address of the transfer
     //text_move_seg_end : end address of the transfer
     //text_move_seg_size: length of the transfer, in **word**
-    la t0, UBOOT_BEGIN_ADDR_OFFSET
-    la t1, UBOOT_END_ADDR_OFFSET
-    la t2, UBOOT_WORD_SIZE
+    li t0, UBOOT_BEGIN_ADDR_OFFSET
+    li t1, UBOOT_END_ADDR_OFFSET
+    li t2, UBOOT_WORD_SIZE
     // source should be in bfc ( spi flash address )
     li t3, 0xbfc00000
     or t0, t0, t3
     // move the end address to 0xa0000000 ddr3 0-128M, the address is in uncached, so it 
     // has the same effect of being moved to 0x80000000
-    li t4, 0xbfc00000
+    li t4, 0x80000000
     or t1, t1, t4
     // loop until the moving has ended
 loop_until_move_end:
