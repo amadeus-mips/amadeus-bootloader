@@ -314,7 +314,7 @@ WELCOME:
     lb a0, 0(s0)
     bne a0, zero, .Loop0            // 打印循环至0结束符
     nop
-    j SHELL                         // 开始交互
+    j UTEST_MOVE_BOOTLOADER                         // 开始交互
     nop
 
 

@@ -1,6 +1,7 @@
 #include <regdef.h>
 #include <mipsregs.h> 
 #include <shell.h>
+#include <u_boot.h>
 
     .set noreorder
     .set noat
@@ -8,6 +9,7 @@
     .section .bss.uregs
     .p2align 2
     .global uregs
+    .global OP_J
 uregs:
     .rept 32                        // 第31个为用户程序入口地址临时保存
     .long 0
@@ -42,8 +44,49 @@ SHELL:
     ori t0, zero, SH_OP_T
     beq v0, t0, .OP_T
     nop
+    ori t0, zero, SH_OP_J
+    beq v0, t0, OP_J
+    nop
     j .DONE                         // 错误的操作符，默认忽略
     nop
+
+OP_J:
+    add $1, zero, zero
+    add $2, zero, zero
+    add $3, zero, zero
+    add $4, zero, zero
+    add $5, zero, zero
+    add $6, zero, zero
+    add $7, zero, zero
+    add $8, zero, zero
+    add $9, zero, zero
+    add $10, zero, zero
+    add $11, zero, zero
+    add $12, zero, zero
+    add $13, zero, zero
+    add $14, zero, zero
+    add $15, zero, zero
+    add $16, zero, zero
+    add $17, zero, zero
+    add $18, zero, zero
+    add $19, zero, zero
+    add $20, zero, zero
+    add $21, zero, zero
+    add $22, zero, zero
+    add $23, zero, zero
+    add $24, zero, zero
+    add $25, zero, zero
+    add $26, zero, zero
+    add $27, zero, zero
+    add $28, zero, zero
+    add $29, zero, zero
+    add $30, zero, zero
+    add $31, zero, zero
+    // pc should start with 8000 already
+    li t0, U_BOOT_ADDRESS
+    jr t0
+    nop
+
 
 .OP_T:                              // 操作 - 打印TLB项
     jal READSERIALWORD              // 取num(index)

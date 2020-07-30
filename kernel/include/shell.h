@@ -6,6 +6,7 @@
 #define SH_OP_A 0x0041              // char 'A'
 #define SH_OP_G 0x0047              // char 'G'
 #define SH_OP_T 0x0054              // char 'T'
+#define SH_OP_J 0x006a              // char 'J'
 
 #define PUTREG(r)  ((r - 1) << 2)
 

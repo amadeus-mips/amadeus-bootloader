@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include <exception.h>
 #include <shell.h>
+#include <u_boot.h>
 
 /*==============================================================
  *                        TEST for MONITOR
@@ -10,12 +11,9 @@
  *  Entry symbol prefix 'UTEST_'
  *==============================================================*/
 
-#define UBOOT_BEGIN_ADDR_OFFSET 0x1329c
-#define UBOOT_END_ADDR_OFFSET 0x90000
-#define UBOOT_WORD_SIZE 0xe1dc
-
     .set noreorder
     .set noat
+    .global UTEST_MOVE_BOOTLOADER
     .section .text.utest
     .p2align 2
 
@@ -328,7 +326,7 @@ loop_until_move_end:
     bnez t2, loop_until_move_end
     nop
     // jump to shell  
-    jr ra
+    j OP_J
     nop   
 
 
