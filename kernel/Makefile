@@ -43,7 +43,7 @@ CONFIG_FILE := .config_$(ON_FPGA)_$(EN_INT)_$(EN_TLB)
 
 .PHONY: all clean checkdirs show-utest commits-num sim
 
-all: $(TARGET) kernel.bin show-utest
+all: clean $(TARGET) kernel.bin show-utest
 
 $(CONFIG_FILE):
 	@rm -f .config_*

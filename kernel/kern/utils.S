@@ -12,7 +12,7 @@
 
 WRITESERIAL:                        // 写串口：将a0的低八位写入串口
 #ifdef MACH_FPGA
-    li  t1, 0xbfe40000
+    li  t1, 0xbfd00000
 .TESTW:
     lb   t0, 5(t1)                // 查看串口状态, LSR
     andi t0, t0, 0x20             // 截取写状态位, TXRDY
@@ -31,7 +31,7 @@ WRITESERIAL:                        // 写串口：将a0的低八位写入串口
 
 READSERIAL:                         // 读串口：将读到的数据写入v0低八位
 #ifdef MACH_FPGA
-    li  t1, 0xbfe40000
+    li  t1, 0xbfd00000
 .TESTR:
     lb   t0, 5(t1)                // 查看串口状态, LSR
     andi t0, t0, 0x01             // 截取读状态位, RXRDY
