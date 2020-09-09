@@ -314,7 +314,7 @@ UTEST_MOVE_BOOTLOADER:
     or t0, t0, t3
     // move the end address to 0xa0000000 ddr3 0-128M, the address is in uncached, so it 
     // has the same effect of being moved to 0x80000000
-    li t4, 0x80000000
+    li t4, 0xa0000000
     or t1, t1, t4
     // loop until the moving has ended
 loop_until_move_end:
